@@ -1,0 +1,105 @@
+versioninfo
+{
+	"editorversion" "400"
+	"editorbuild" "9672"
+	"mapversion" "32"
+	"formatversion" "100"
+	"prefab" "0"
+}
+visgroups
+{
+}
+viewsettings
+{
+	"bSnapToGrid" "1"
+	"bShowGrid" "1"
+	"bShowLogicalGrid" "0"
+	"nGridSpacing" "16"
+	"bShow3DGrid" "0"
+}
+world
+{
+	"id" "1"
+	"mapversion" "32"
+	"classname" "worldspawn"
+	"detailmaterial" "detail/detailsprites"
+	"detailvbsp" "detail.vbsp"
+	"maxblobcount" "250"
+	"maxpropscreenwidth" "-1"
+	"skyname" "sky_black_nofog"
+}
+entity
+{
+	"id" "35"
+	"classname" "func_instance_parms"
+	"parm1" "$super_damage integer 0"
+	"parm2" "$shoot_through_portals integer 0"
+	"origin" "0 0 32"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1500]"
+	}
+}
+entity
+{
+	"id" "4"
+	"classname" "point_template"
+	"spawnflags" "2"
+	"targetname" "@template_spawn_3"
+	"Template01" "ballistics_turret"
+	"origin" "0 0 16"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 0]"
+	}
+}
+entity
+{
+	"id" "2"
+	"classname" "npc_portal_turret_floor"
+	"AllowShootThroughPortals" "$shoot_through_portals"
+	"angles" "0 180 0"
+	"CollisionType" "0"
+	"DamageForce" "1"
+	"DisableMotion" "0"
+	"Gagged" "0"
+	"LoadAlternativeModels" "0"
+	"model" "models/npcs/ballistics_turret/ballistics_turret.mdl"
+	"ModelIndex" "0"
+	"PickupEnabled" "1"
+	"spawnflags" "32"
+	"targetname" "ballistics_turret"
+	"thinkfunction" "SetBallisticsTurretModel"
+	"TurretRange" "1024"
+	"UsedAsActor" "0"
+	"UseSuperDamageScale" "$super_damage"
+	"vscripts" "ballistics_ucp/ballistics_turret.nut"
+	connections
+	{
+		"OnExplode" "@voice_turret_diedFireUser10-1"
+		"OnPainted" "@voice_turret_diedFireUser10-1"
+		"OnTipped" "@voice_turret_diedFireUser10-1"
+	}
+	"origin" "0 0 -61"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 0]"
+	}
+}
+cameras
+{
+	"activecamera" "-1"
+}
+cordons
+{
+	"active" "0"
+}

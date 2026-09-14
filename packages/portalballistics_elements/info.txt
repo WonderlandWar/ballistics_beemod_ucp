@@ -46,13 +46,28 @@
 	"ID" "ITEM_TARGET_CUBE"	
 	"Description"
 		{
-		"" "Distracts turrets from players and persistent targets."
+		"" "Distracts Ballistics Turrets from players and persistent targets."
 		}
 	"Version"
 		{
 		"Styles"
 			{
 			"BEE2_CLEAN"     "target_cube"
+			}
+		}
+	}
+"Item"
+	{
+	"ID" "ITEM_BALLISTICS_TURRET"	
+	"Description"
+		{
+		"" "Faster at deploying/retracting than normal turrets, attacks Target Cubes and Persistent Targets."
+		}
+	"Version"
+		{
+		"Styles"
+			{
+			"BEE2_CLEAN"     "ballistics_turret"
 			}
 		}
 	}
