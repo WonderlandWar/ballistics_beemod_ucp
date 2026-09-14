@@ -1,0 +1,5 @@
+"UnlitGeneric"
+{
+	"$basetexture" "models/props_map_editor/ballistics/range_indicator"
+	"$translucent" 1
+}

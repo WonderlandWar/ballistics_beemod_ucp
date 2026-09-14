@@ -1,0 +1,15 @@
+"VertexLitGeneric"
+{
+	"$basetexture"	"models/ApertureGun/Barrel_Diffuse"
+
+	"$selfillum" 1
+
+	"$bumpmap" "models/ApertureGun/Barrel_normal"	
+	"$normalmapalphaenvmapmask" 1
+
+	"$envmap" env_cubemap
+	"$envmaptint" "[0.57 0.57 0.57]"
+
+	"$ambientocclusion" 1
+	"$AmbientOcclTexture" "models/ApertureGun/Barrel_AO"
+}

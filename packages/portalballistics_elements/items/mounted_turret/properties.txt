@@ -1,0 +1,11 @@
+"Properties"
+	{
+	"Authors"		"Wonderland_War, garmezon"
+	"Tags"			"Portal: Ballistics; Test Elements"
+	"Ent_count"     "44"
+	"infoURL"		"https://www.moddb.com/mods/portal-ballistics"
+	"Icon"
+		{
+			"0"	"clean/mounted_turret.png"
+		}
+	}

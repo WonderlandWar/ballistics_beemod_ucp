@@ -1,0 +1,14 @@
+"VertexLitGeneric"
+{
+	"$basetexture"	"models/ApertureGun/Gun_Base_Diffuse"
+
+	"$phong" 1
+	"$phongexponenttexture" "models/ApertureGun/GunBase_Smoothness"
+	"$phongboost" 1.0
+	"$phongfresnelranges"	"[0.05 2 1]"
+
+	"$bumpmap" "models/ApertureGun/GunBase_normal"
+
+	"$ambientocclusion" 1
+	"$AmbientOcclTexture" "models/ApertureGun/GunBase_AO"
+}

@@ -1,0 +1,16 @@
+"Properties"
+	{
+	"Authors"		"Wonderland_War, Snazz, garmezon"
+	"Tags"			"Portal: Ballistics; Test Elements"
+	"Ent_count"     "7"
+	"Description"
+		{
+		"" "A target that requires persistent gunfire for it to stay active."
+		"" "Turrets will automatically fire at Persistent Targets, and prioritize shooting them over players."
+		}
+	"infoURL"		"https://www.moddb.com/mods/portal-ballistics"
+	"Icon"
+		{
+			"0"	"clean/persistent_target.png"
+		}
+	}

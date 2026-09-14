@@ -1,0 +1,58 @@
+"ID"		"BALLISTICS_ELEMENTS"
+"Name"		"Portal: Ballistics Elements"
+"Desc"      "Adds the elements featured in Portal: Ballistics."
+
+"Prerequisites"
+	{
+	"Package"	"BEE2_CLEAN_STYLE"
+	}
+"Item"
+	{
+	"ID" "ITEM_MOUNTED_TURRET"
+	"Description"	"A player controlled turret that can activate targets and cause high knockback to physics items."
+	"all_conf"	"mounted_turret"
+	"Version"
+		{
+		"Styles"
+			{
+			"BEE2_CLEAN"		"mounted_turret"
+			}
+		}
+	}
+"BrushTemplate"
+	{
+	"ID"    "BALLISTICS_MOUNTED_TURRET_TEMPLATE"
+	"file"  "mounted_turret_base.vmf"
+	}
+"Item"
+	{
+	"ID" "ITEM_PERSISTENT_TARGET"
+	"all_conf"	"persistent_target"
+	"Version"
+		{
+		"Styles"
+			{
+			"BEE2_CLEAN"		"persistent_target"
+			}
+		}
+	}
+"BrushTemplate"
+	{
+	"ID"    "BALLISTICS_PERSISTENT_TARGET_TEMPLATE"
+	"file"  "persistent_target_base.vmf"
+	}
+"Item"
+	{
+	"ID" "ITEM_TARGET_CUBE"	
+	"Description"
+		{
+		"" "Distracts turrets from players and persistent targets."
+		}
+	"Version"
+		{
+		"Styles"
+			{
+			"BEE2_CLEAN"     "target_cube"
+			}
+		}
+	}

@@ -1,0 +1,107 @@
+versioninfo
+{
+	"editorversion" "400"
+	"editorbuild" "9672"
+	"mapversion" "15"
+	"formatversion" "100"
+	"prefab" "0"
+}
+visgroups
+{
+}
+viewsettings
+{
+	"bSnapToGrid" "1"
+	"bShowGrid" "1"
+	"bShowLogicalGrid" "0"
+	"nGridSpacing" "8"
+	"bShow3DGrid" "0"
+}
+world
+{
+	"id" "1"
+	"mapversion" "103"
+	"classname" "worldspawn"
+	"detailmaterial" "detail/detailsprites"
+	"detailvbsp" "detail.vbsp"
+	"maxblobcount" "250"
+	"maxpropscreenwidth" "-1"
+	"skyname" "sky_black_nofog"
+}
+entity
+{
+	"id" "196"
+	"classname" "ai_relationship"
+	"disposition" "1"
+	"rank" "1"
+	"Reciprocal" "1"
+	"StartActive" "1"
+	"subject" "npc_portal_turret_floor"
+	"target" "persistenttarget*"
+	"origin" "0 0 32"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 500]"
+	}
+}
+entity
+{
+	"id" "214"
+	"classname" "filter_multi"
+	"Filter01" "pt_filter_bullets"
+	"Filter02" "pt_filter_tank"
+	"filtertype" "1"
+	"Negated" "Allow entities that match criteria"
+	"targetname" "@pt_filter_damage"
+	"origin" "16 0 48"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 0]"
+	}
+}
+entity
+{
+	"id" "216"
+	"classname" "filter_damage_type"
+	"damagetype" "2"
+	"Negated" "Allow entities that match criteria"
+	"targetname" "pt_filter_bullets"
+	"origin" "16 0 32"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 0]"
+	}
+}
+entity
+{
+	"id" "218"
+	"classname" "filter_activator_class"
+	"filterclass" "func_tank"
+	"Negated" "Allow entities that match criteria"
+	"targetname" "pt_filter_tank"
+	"origin" "16 0 16"
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 0]"
+	}
+}
+cameras
+{
+	"activecamera" "-1"
+}
+cordons
+{
+	"active" "0"
+}
