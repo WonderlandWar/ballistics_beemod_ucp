@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "9672"
-	"mapversion" "341"
+	"mapversion" "343"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -26,7 +26,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "341"
+	"mapversion" "343"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -512,6 +512,7 @@ entity
 	"id" "1823"
 	"classname" "prop_dynamic"
 	"angles" "0 270 30.5"
+	"disableshadows" "1"
 	"fademindist" "-1"
 	"fadescale" "1"
 	"MaxAnimTime" "10"
@@ -539,6 +540,7 @@ entity
 	"id" "1827"
 	"classname" "prop_dynamic"
 	"angles" "0 90 0"
+	"disableshadows" "1"
 	"fademindist" "-1"
 	"fadescale" "1"
 	"MaxAnimTime" "10"
