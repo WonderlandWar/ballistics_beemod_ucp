@@ -169,7 +169,7 @@ $sequence "deploy" {
 	activity "ACT_FLOOR_TURRET_OPEN" 1
 	fadein 0.2
 	fadeout 0.2
-	fps 150
+	fps 30
 }
 
 $sequence "idlealert" {
@@ -206,7 +206,7 @@ $sequence "retract" {
 	activity "ACT_FLOOR_TURRET_CLOSE" 1
 	fadein 0.2
 	fadeout 0.2
-	fps 300
+	fps 30
 }
 
 $sequence "eye_off" {
