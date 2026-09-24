@@ -9,7 +9,10 @@
 "Item"
 	{
 	"ID" "ITEM_MOUNTED_TURRET"
-	"Description"	"A player controlled turret that can activate targets and cause high knockback to physics items."
+	"Description"
+		{
+		"" "A player controlled turret that can activate targets and cause high knockback to physics items."
+		}
 	"all_conf"	"mounted_turret"
 	"Version"
 		{
@@ -27,6 +30,11 @@
 "Item"
 	{
 	"ID" "ITEM_PERSISTENT_TARGET"
+	"Description"
+		{
+		"" "A target that requires persistent gunfire for it to stay active."
+		"" "Turrets will automatically fire at Persistent Targets, and prioritize shooting them over players."
+		}
 	"all_conf"	"persistent_target"
 	"Version"
 		{
@@ -43,10 +51,16 @@
 	}
 "Item"
 	{
-	"ID" "ITEM_TARGET_CUBE"	
+	"ID" "ITEM_TARGET_CUBE"
 	"Description"
 		{
 		"" "Distracts Turrets from players and persistent targets."
+		"" ""
+		"" ""
+		"" "To place a dropper version, place the item underneath a regular cube dropper, or use the [timer to link them](https://github.com/BEEmod/BEE2-items/wiki/Default-PeTI-Items#cubes)."
+		"" ""
+		"" ""
+		"" "This item does not work properly in cooperative."
 		}
 	"Version"
 		{
