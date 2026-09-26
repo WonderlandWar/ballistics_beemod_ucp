@@ -5,6 +5,8 @@
 "Prerequisites"
 	{
 	"Package"	"BEE2_CLEAN_STYLE"
+	"Package"	"BEE2_TURRET_DROPPER"
+	"Package"	"VALVE_HAZARDS"
 	}
 "Item"
 	{
@@ -22,11 +24,6 @@
 			}
 		}
 	}
-"BrushTemplate"
-	{
-	"ID"    "BALLISTICS_MOUNTED_TURRET_TEMPLATE"
-	"file"  "mounted_turret_base.vmf"
-	}
 "Item"
 	{
 	"ID" "ITEM_PERSISTENT_TARGET"
@@ -35,19 +32,14 @@
 		"" "A target that requires persistent gunfire for it to stay active."
 		"" "Turrets will automatically fire at Persistent Targets, and prioritize shooting them over players."
 		}
-	"all_conf"	"persistent_target"
 	"Version"
 		{
 		"Styles"
 			{
-			"BEE2_CLEAN"		"persistent_target"
+			"BEE2_CLEAN"		"persistent_target_p2"
+			"BEE2_PORTAL_1"	"persistent_target"
 			}
 		}
-	}
-"BrushTemplate"
-	{
-	"ID"    "BALLISTICS_PERSISTENT_TARGET_TEMPLATE"
-	"file"  "persistent_target_base.vmf"
 	}
 "Item"
 	{
@@ -68,5 +60,199 @@
 			{
 			"BEE2_CLEAN"     "target_cube"
 			}
+		}
+	}
+
+"Item"
+	{
+	"ID" "ITEM_TURRET_DROPPER_PLUS"
+	"Description"
+		{
+		"" "A Dropper which lowers Turrets to the floor with a grabber.  "
+		"" ""
+		"" "* Place a normal Turret or a Ballistics Turret directly below the dropper to set which way dropped turrets face. That turret is removed."
+		"" "* The timer chooses the colour of the dropper and its turrets (see the ItemVar menu)."
+		"" "* Turrets dissolve when they die (tipped, burned, painted, exploded). With Auto-Respawn, a new one is then dropped."
+		"" ""
+		"" "Portal 1 stripe patterns by garmezon."
+		}
+	"Version"
+		{
+		"Styles"
+			{
+			"BEE2_CLEAN" "turret_dropper_plus"
+			"BEE2_PORTAL_1"
+				{
+				"Base" "BEE2_CLEAN"
+				"Replace"
+					{
+					"BEE2_CUBE_DROPPER_CLEAN_CAP" "BEE2_TURRET_DROPPER_P1_CAP"
+					"instances/BEE2/clean/items/turret_dropper_plus_cowl.vmf" ""
+					}
+				"Instances"
+					{
+					"0" "instances/BEE2/p1/items/turret_dropper_plus.vmf"
+					}
+				}
+			"BEE2_OVERGROWN"
+				{
+				"Base" "BEE2_CLEAN"
+				"Replace"
+					{
+					"instances/BEE2/clean/items/turret_dropper_plus_cowl.vmf" "instances/BEE2/over/items/turret_dropper_plus_cowl.vmf"
+					}
+				"Instances"
+					{
+					"0" "instances/BEE2/over/items/turret_dropper_plus.vmf"
+					}
+				}
+			"BEE2_1950s"
+				{
+				"Base" "BEE2_CLEAN"
+				"Replace"
+					{
+					"BEE2_CUBE_DROPPER_CLEAN_CAP" "BEE2_CUBE_DROPPER_RETRO_CAP"
+					"instances/BEE2/clean/items/turret_dropper_plus_cowl.vmf" ""
+					// Distance extra to move
+					"23"    "167"
+					}
+				"Append"
+					{
+					"Conditions"
+						{
+						"Condition"
+							{
+							"instance"	"<ITEM_TURRET_DROPPER_PLUS>"
+							"Result"
+								{
+								"AddOverlay" "<ITEM_TURRET_DROPPER_PLUS:bee2_turr>"
+								}
+							}
+						}
+					}
+				"Instances"
+					{
+					"0"         "instances/BEE2/50s/items/turret_dropper_plus.vmf"
+					"bee2_turr" "instances/BEE2/50s/items/turret_dropper_plus_skel.vmf"
+					}
+				}
+			"BEE2_1980s"
+				{
+				"Base" "BEE2_1950s"
+				"Instances"
+					{
+					"bee2_turr" "instances/BEE2/80s/items/turret_dropper_plus_modern.vmf"
+					}
+				}
+			}
+		}
+	}
+
+"Item"
+	{
+	"ID" "ITEM_TURRET_PLUS"
+	"Description"
+		{
+		"" "A Turret using the same colours and patterns as the Ballistics Turret Dropper."
+		"" ""
+		"" "* The timer chooses the colour (see the Ballistics Turret Dropper ItemVar menu). A white turret looks like a normal turret."
+		"" "* Stripe patterns cycle together with Ballistics Turret Dropper turrets."
+		"" "* Placed under a Ballistics Turret Dropper, it sets which way dropped turrets face and is removed, like a normal Turret."
+		}
+	"Version"
+		{
+		"Styles"
+			{
+			"BEE2_CLEAN" "turret_plus"
+			"BEE2_PORTAL_1"
+				{
+				"Base" "BEE2_CLEAN"
+				"Instances"
+					{
+					"0" "instances/BEE2/p1/items/turret_plus.vmf"
+					}
+				}
+			"BEE2_1950s"
+				{
+				"Base" "BEE2_CLEAN"
+				"Instances"
+					{
+					"0" "instances/BEE2/50s/items/turret_plus.vmf"
+					}
+				}
+			"BEE2_1980s"
+				{
+				"Base" "BEE2_CLEAN"
+				}
+			}
+		}
+	}
+
+"ConfigGroup"
+	{
+	"ID"    "TURRET_DROPPER_PLUS"
+	"Name"  "Ballistics Turret Dropper"
+	"Widget"
+		{
+		"ID"       "COLOR"
+		"Label"    "Turret Colour"
+		"Type"     "color"
+		"UseTimer" "1"
+		"HasInf"   "0"
+		"Default"
+			{
+			"inf" "255 255 255"
+			"3"   "255 255 255"
+			"4"   "230 25 25"
+			"5"   "25 230 25"
+			"6"   "25 25 230"
+			"7"   "230 230 25"
+			"8"   "230 25 230"
+			"9"   "25 230 230"
+			"10"  "25 25 25"
+			"11"  "128 128 128"
+			"12"  "230 128 25"
+			"13"  "128 25 230"
+			"14"  "25 128 128"
+			"15"  "230 128 128"
+			"16"  "128 230 128"
+			"17"  "128 128 230"
+			"18"  "128 25 25"
+			"19"  "25 128 25"
+			"20"  "25 25 128"
+			"21"  "128 128 25"
+			"22"  "128 25 128"
+			"23"  "230 230 128"
+			"24"  "230 128 230"
+			"25"  "128 230 230"
+			"26"  "230 25 128"
+			"27"  "128 230 25"
+			"28"  "25 128 230"
+			"29"  "230 230 230"
+			"30"  "32 192 32"
+			}
+		"Tooltip" "Turret colour for each timer value. 3 (default) is untinted."
+		}
+	"Widget"
+		{
+		"ID"      "LOWER_SPEED"
+		"Label"   "Turret Lowering Speed"
+		"Type"    "Slider"
+		"Default" "200"
+		"Min"     "50"
+		"Max"     "600"
+		"Step"    "50"
+		"Tooltip" "How fast the grabber lowers turrets to the floor, in Hammer units per second. A Puzzlemaker voxel is 128 units. The default dropper uses 200."
+		}
+	"Widget"
+		{
+		"ID"      "RETURN_SPEED"
+		"Label"   "Gripper Return Speed"
+		"Type"    "Slider"
+		"Default" "400"
+		"Min"     "100"
+		"Max"     "1200"
+		"Step"    "50"
+		"Tooltip" "Top speed of the grabber going back up after releasing a turret, in Hammer units per second. It eases out at a quarter, then half of this speed. The default dropper uses 400."
 		}
 	}

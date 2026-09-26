@@ -1,0 +1,16 @@
+VertexLitGeneric
+{
+$baseTexture "models/props/tdp_box_dropper_tube_stripe2"
+$blendtintbybasealpha 1
+$envmap env_cubemap
+$alphaenvmapmask 1
+$bumpmap "models/props/box_dropper_tube_normal"
+$envmaptint "[.20 .30 .35]"
+$translucent 1
+$nocull 1
+
+$phongexponent 1
+$phongboost 1
+
+$phongfresnelranges "[1 2 5]"
+}
