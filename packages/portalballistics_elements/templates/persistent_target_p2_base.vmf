@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8869"
-	"mapversion" "21"
+	"mapversion" "25"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -14,7 +14,7 @@ viewsettings
 	"bSnapToGrid" "1"
 	"bShowGrid" "1"
 	"bShowLogicalGrid" "0"
-	"nGridSpacing" "8"
+	"nGridSpacing" "1"
 }
 palette_plus
 {
@@ -89,7 +89,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "21"
+	"mapversion" "25"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -105,7 +105,7 @@ entity
 	"faces" "1365 1353 1347 1328 1340 1359 1475"
 	"grid_snap" "0"
 	"priority" "0"
-	"remove_brush" "1"
+	"remove_brush" "2"
 	"use_pattern" "0"
 	"origin" "-48 48 -64"
 	editor
@@ -601,124 +601,6 @@ entity
 			"material" "ANIM_WP/FRAMEWORK/SQUAREBEAMS"
 			"uaxis" "[0 0 1 313] 0.25"
 			"vaxis" "[1 0 0 -0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		editor
-		{
-			"color" "0 180 0"
-			"visgroupshown" "1"
-			"visgroupautoshown" "1"
-		}
-	}
-	solid
-	{
-		"id" "286"
-		side
-		{
-			"id" "1316"
-			"plane" "(64 64 -64) (64 -64 -64) (-64 -64 -64)"
-			vertices_plus
-			{
-				"v" "64 64 -64"
-				"v" "64 -64 -64"
-				"v" "-64 -64 -64"
-				"v" "-64 64 -64"
-			}
-			"material" "ANIM_WP/FRAMEWORK/BACKPANELS_CHEAP"
-			"uaxis" "[-0 1 0 0] 0.25"
-			"vaxis" "[1 0 0 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "1315"
-			"plane" "(64 -64 -68) (64 64 -68) (-64 64 -68)"
-			vertices_plus
-			{
-				"v" "64 -64 -68"
-				"v" "64 64 -68"
-				"v" "-64 64 -68"
-				"v" "-64 -64 -68"
-			}
-			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[-0 1 0 0] 0.25"
-			"vaxis" "[1 0 0 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "1314"
-			"plane" "(64 64 -68) (64 -64 -68) (64 -64 -64)"
-			vertices_plus
-			{
-				"v" "64 64 -68"
-				"v" "64 -64 -68"
-				"v" "64 -64 -64"
-				"v" "64 64 -64"
-			}
-			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[0 0 1 -7] 0.25"
-			"vaxis" "[-0 1 0 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "1313"
-			"plane" "(-64 64 -68) (64 64 -68) (64 64 -64)"
-			vertices_plus
-			{
-				"v" "-64 64 -68"
-				"v" "64 64 -68"
-				"v" "64 64 -64"
-				"v" "-64 64 -64"
-			}
-			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[0 0 1 -7] 0.25"
-			"vaxis" "[-1 -0 0 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "1312"
-			"plane" "(-64 -64 -68) (-64 64 -68) (-64 64 -64)"
-			vertices_plus
-			{
-				"v" "-64 -64 -68"
-				"v" "-64 64 -68"
-				"v" "-64 64 -64"
-				"v" "-64 -64 -64"
-			}
-			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[0 0 1 -7] 0.25"
-			"vaxis" "[0 -1 0 0] 0.25"
-			"rotation" "0"
-			"lightmapscale" "16"
-			"smoothing_groups" "0"
-		}
-		side
-		{
-			"id" "1311"
-			"plane" "(64 -64 -68) (-64 -64 -68) (-64 -64 -64)"
-			vertices_plus
-			{
-				"v" "64 -64 -68"
-				"v" "-64 -64 -68"
-				"v" "-64 -64 -64"
-				"v" "64 -64 -64"
-			}
-			"material" "TOOLS/TOOLSNODRAW"
-			"uaxis" "[0 0 1 -7] 0.25"
-			"vaxis" "[1 0 0 0] 0.25"
 			"rotation" "0"
 			"lightmapscale" "16"
 			"smoothing_groups" "0"
@@ -3740,6 +3622,124 @@ entity
 			"visgroupautoshown" "1"
 		}
 	}
+	solid
+	{
+		"id" "1299"
+		side
+		{
+			"id" "1517"
+			"plane" "(-63 63 -63) (63 63 -63) (63 -63 -63)"
+			vertices_plus
+			{
+				"v" "-63 63 -63"
+				"v" "63 63 -63"
+				"v" "63 -63 -63"
+				"v" "-63 -63 -63"
+			}
+			"material" "PLASTIC/PLASTIC_LIGHT002A"
+			"uaxis" "[1 0 0 225] 0.25"
+			"vaxis" "[0 -1 0 -256] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "1516"
+			"plane" "(-63 -63 -64) (63 -63 -64) (63 63 -64)"
+			vertices_plus
+			{
+				"v" "-63 -63 -64"
+				"v" "63 -63 -64"
+				"v" "63 63 -64"
+				"v" "-63 63 -64"
+			}
+			"material" "ANIM_WP/FRAMEWORK/BACKPANELS02"
+			"uaxis" "[1 0 0 0] 0.25"
+			"vaxis" "[0 -1 0 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "1515"
+			"plane" "(-63 63 -63) (-63 -63 -63) (-63 -63 -64)"
+			vertices_plus
+			{
+				"v" "-63 63 -63"
+				"v" "-63 -63 -63"
+				"v" "-63 -63 -64"
+				"v" "-63 63 -64"
+			}
+			"material" "ANIM_WP/FRAMEWORK/BACKPANELS02"
+			"uaxis" "[0 1 0 0] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "1514"
+			"plane" "(63 63 -64) (63 -63 -64) (63 -63 -63)"
+			vertices_plus
+			{
+				"v" "63 63 -64"
+				"v" "63 -63 -64"
+				"v" "63 -63 -63"
+				"v" "63 63 -63"
+			}
+			"material" "ANIM_WP/FRAMEWORK/BACKPANELS02"
+			"uaxis" "[0 1 0 0] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "1513"
+			"plane" "(63 63 -63) (-63 63 -63) (-63 63 -64)"
+			vertices_plus
+			{
+				"v" "63 63 -63"
+				"v" "-63 63 -63"
+				"v" "-63 63 -64"
+				"v" "63 63 -64"
+			}
+			"material" "ANIM_WP/FRAMEWORK/BACKPANELS02"
+			"uaxis" "[1 0 0 0] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "1512"
+			"plane" "(63 -63 -64) (-63 -63 -64) (-63 -63 -63)"
+			vertices_plus
+			{
+				"v" "63 -63 -64"
+				"v" "-63 -63 -64"
+				"v" "-63 -63 -63"
+				"v" "63 -63 -63"
+			}
+			"material" "ANIM_WP/FRAMEWORK/BACKPANELS02"
+			"uaxis" "[1 0 0 0] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		editor
+		{
+			"color" "0 180 0"
+			"visgroupshown" "1"
+			"visgroupautoshown" "1"
+		}
+	}
 	editor
 	{
 		"color" "0 180 0"
@@ -3775,7 +3775,7 @@ entity
 	"faces" "1377 1371 1384 1396 1408 1499 1390"
 	"grid_snap" "0"
 	"priority" "0"
-	"remove_brush" "1"
+	"remove_brush" "2"
 	"use_pattern" "0"
 	"origin" "-48 -48 -64"
 	editor
@@ -3794,7 +3794,7 @@ entity
 	"faces" "1487 1451 1427 1421 1414 1505"
 	"grid_snap" "0"
 	"priority" "0"
-	"remove_brush" "1"
+	"remove_brush" "2"
 	"use_pattern" "0"
 	"origin" "48 -48 -64"
 	editor
@@ -3813,7 +3813,7 @@ entity
 	"faces" "1481 1334 1310 1439 1493 1433"
 	"grid_snap" "0"
 	"priority" "0"
-	"remove_brush" "1"
+	"remove_brush" "2"
 	"use_pattern" "0"
 	"origin" "48 48 -64"
 	editor
@@ -3831,7 +3831,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "16 16 -64"
 	editor
 	{
@@ -3848,7 +3848,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "48 16 -64"
 	editor
 	{
@@ -3865,7 +3865,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "16 48 -64"
 	editor
 	{
@@ -3882,7 +3882,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "48 48 -64"
 	editor
 	{
@@ -3899,7 +3899,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "16 -16 -64"
 	editor
 	{
@@ -3916,7 +3916,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "48 -16 -64"
 	editor
 	{
@@ -3933,7 +3933,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "48 -48 -64"
 	editor
 	{
@@ -3950,7 +3950,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "16 -48 -64"
 	editor
 	{
@@ -3967,7 +3967,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "-16 -48 -64"
 	editor
 	{
@@ -3984,7 +3984,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "-16 -16 -64"
 	editor
 	{
@@ -4001,7 +4001,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "-48 -16 -64"
 	editor
 	{
@@ -4018,7 +4018,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "-48 16 -64"
 	editor
 	{
@@ -4035,7 +4035,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "-48 48 -64"
 	editor
 	{
@@ -4052,7 +4052,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "-16 48 -64"
 	editor
 	{
@@ -4069,7 +4069,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "-16 16 -64"
 	editor
 	{
@@ -4086,7 +4086,7 @@ entity
 	"angles" "0 0 0"
 	"color" "tile"
 	"force" "0"
-	"skin" "5"
+	"skin" "4"
 	"origin" "-48 -48 -64"
 	editor
 	{

@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "8869"
-	"mapversion" "3"
+	"mapversion" "5"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -95,7 +95,7 @@ bgimages_plus
 world
 {
 	"id" "1"
-	"mapversion" "3"
+	"mapversion" "5"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -302,6 +302,33 @@ hidden
 			"visgroupautoshown" "1"
 			"logicalpos" "[0 3500]"
 		}
+	}
+}
+entity
+{
+	"id" "86"
+	"classname" "light"
+	"_castentityshadow" "0"
+	"_constant_attn" "0"
+	"_distance" "0"
+	"_fifty_percent_distance" "0"
+	"_hardfalloff" "0"
+	"_light" "255 60 60 5"
+	"_lighthdr" "-1 -1 -1 1"
+	"_lightscalehdr" "1"
+	"_linear_attn" "0"
+	"_quadratic_attn" "1"
+	"_shadoworiginoffset" "0 0 0"
+	"_zero_percent_distance" "0"
+	"angles" "0 0 0"
+	"style" "0"
+	"origin" "8 0 -24"
+	editor
+	{
+		"color" "255 255 0"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 0]"
 	}
 }
 cameras
