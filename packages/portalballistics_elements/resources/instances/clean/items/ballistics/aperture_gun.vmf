@@ -553,8 +553,6 @@ entity
 	connections
 	{
 		"OnPhysGunDrop" "gun_uiDeactivate0-1"
-		"OnPhysGunDrop" "gun_scriptRunScriptCodeDropped()0-1"
-		"OnPlayerPickup" "gun_scriptRunScriptCodeGrabbed()0-1"
 	}
 	"origin" "0 0 -21"
 	editor
@@ -584,7 +582,6 @@ entity
 		"PressedMoveLeft" "!selfDeactivate0-1"
 		"PressedMoveRight" "!selfDeactivate0-1"
 		"PlayerOff" "gun_timerDisable0-1"
-		"PlayerOff" "gun_scriptRunScriptCodeDismount()0-1"
 		"PlayerOff" "gun_buttonUnlock0.5-1"
 		"PlayerOff" "gun_grabForceDrop0-1"
 		"PlayerOff" "gun_scriptRunScriptCodeGrabHome()0.1-1"
