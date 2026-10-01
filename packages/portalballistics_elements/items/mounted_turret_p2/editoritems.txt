@@ -1,0 +1,56 @@
+"Item"
+	{
+		"Type"			"ITEM_MOUNTED_TURRET"
+		"Editor"
+		{
+			"SubType"
+			{
+				"Name"			"Mounted Turret"
+				"Model"
+				{
+					// editor model from Portal: Ballistics Elements
+					"ModelName"		"ballistics/peti_apgun.3ds"
+				}
+				"Palette"
+				{
+					"Tooltip"		"MOUNTED TURRET"
+					"Image"			"palette/mounted_turret.png"
+					"Position"		"1 0 0"
+				}
+				"Sounds"
+				{
+					"SOUND_CREATED"					"P2Editor.PlaceButton"
+					"SOUND_EDITING_ACTIVATE"		"P2Editor.ExpandButton"
+					"SOUND_EDITING_DEACTIVATE"		"P2Editor.CollapseButton"
+					"SOUND_DELETED"					"P2Editor.RemoveButton"
+				}
+			}
+			"MovementHandle"	"HANDLE_4_DIRECTIONS"
+		}
+		"Exporting"
+		{
+			"Instances"
+			{
+				"0"
+				{
+					"Name"				"instances/BEE2/clean/items/ballistics/aperture_gun.vmf"
+					"EntityCount"		"14"
+					"BrushCount"		"3"
+					"BrushSideCount"	"18"
+				}
+			}
+			"TargetName"		"apgun"
+			"OccupiedVoxels"
+			{
+				"Voxel"
+				{
+					"Pos"		"0 0 0"
+					"Surface"
+					{
+						"Normal"	"0 0 1"
+					}
+				}
+			}
+			"Offset"	"64 64 64"
+		}
+	}

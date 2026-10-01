@@ -18,14 +18,10 @@
 		{
 		"Styles"
 			{
-			"BEE2_CLEAN"		"mounted_turret"
+			"BEE2_CLEAN"		"mounted_turret_p2"
+			"BEE2_PORTAL_1"		"mounted_turret"
 			}
 		}
-	}
-"BrushTemplate"
-	{
-	"ID"    "BALLISTICS_MOUNTED_TURRET_TEMPLATE"
-	"file"  "mounted_turret_base.vmf"
 	}
 "Item"
 	{
@@ -43,11 +39,6 @@
 			"BEE2_CLEAN"		"persistent_target"
 			}
 		}
-	}
-"BrushTemplate"
-	{
-	"ID"    "BALLISTICS_PERSISTENT_TARGET_TEMPLATE"
-	"file"  "persistent_target_base.vmf"
 	}
 "Item"
 	{

@@ -1,0 +1,17 @@
+"Properties"
+	{
+	"Authors"		"Wonderland_War, garmezon"
+	"Tags"			"Portal: Ballistics; Test Elements"
+	"Ent_count"     "14"
+	"Description"
+		{
+		"" "A player-controlled mounted gun. Press use to mount; the gun follows your crosshair."
+		"" "Press use again, move or jump to dismount."
+		"" "WIP: aiming only, no firing yet."
+		}
+	"infoURL"		"https://www.moddb.com/mods/portal-ballistics"
+	"Icon"
+		{
+			"0"	"clean/aperture_gun_p2.png"
+		}
+	}
