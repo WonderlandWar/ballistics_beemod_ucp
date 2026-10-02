@@ -2,12 +2,12 @@
 	{
 	"Authors"		"Wonderland_War, garmezon"
 	"Tags"			"Portal: Ballistics; Test Elements"
-	"Ent_count"     "14"
+	"Ent_count"     "50"
 	"Description"
 		{
 		"" "A player-controlled mounted gun. Press use to mount; the gun follows your crosshair."
 		"" "Press use again, move or jump to dismount."
-		"" "WIP: aiming only, no firing yet."
+		"" "Fires while powered by an input (Start Enabled inverts it), like the P1 mounted turret."
 		}
 	"infoURL"		"https://www.moddb.com/mods/portal-ballistics"
 	"Icon"
