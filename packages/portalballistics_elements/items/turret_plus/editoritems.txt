@@ -1,0 +1,97 @@
+"Item"
+	{
+		"Type"		"ITEM_TURRET_PLUS"
+		"ItemClass"	"ItemTurret"
+		"Editor"
+		{
+			"SubType"
+			{
+				"Name"		"Ballistics Turret"
+				"Model"
+				{
+					"ModelName"		"sentry.3ds"
+				}
+				"Palette"
+				{
+					"Tooltip"	"BALLISTICS TURRET"
+					"Image"		"palette/ballistics_turret.png"
+					"Position"	"2 6 0"
+				}
+				"Sounds"
+				{
+					"SOUND_CREATED"					"P2Editor.PlaceTurret"
+					"SOUND_EDITING_ACTIVATE"		"P2Editor.ExpandTurret"
+					"SOUND_EDITING_DEACTIVATE"		"P2Editor.CollapseTurret"
+					"SOUND_DELETED"					"P2Editor.RemoveTurret"
+				}
+			}
+			"MovementHandle"		"HANDLE_36_DIRECTIONS"
+			"InvalidSurface"		"CEILING WALL"
+			"CanAnchorOnBarriers"		"1"
+		}
+		"Properties"
+		{
+			"TimerDelay"
+			{
+				"DefaultValue"	"3"
+				"Index"		"1"
+			}
+		}
+		"Exporting"
+		{
+			"Instances"
+			{
+				"0"
+				{
+					"Name"			"instances/BEE2/clean/items/turret_plus.vmf"
+					"EntityCount"	"4"
+				}
+			}
+
+			"TargetName"		"tdturr"
+			"Offset"		"64 64 64"
+			"OccupiedVoxels"
+			{
+				"Voxel"
+				{
+					"Pos"				"0 0 0"
+					"CollideType"		"COLLIDE_PHYSICS"
+					"CollideAgainst"	"COLLIDE_PHYSICS"
+
+					"Surface"
+					{
+						"Pos"		"1 1 0"
+					}
+					"Surface"
+					{
+						"Pos"		"1 2 0"
+					}
+					"Surface"
+					{
+						"Pos"		"2 1 0"
+					}
+					"Surface"
+					{
+						"Pos"		"2 2 0"
+					}
+
+					"Surface"
+					{
+						"Pos"		"1 1 1"
+					}
+					"Surface"
+					{
+						"Pos"		"1 2 1"
+					}
+					"Surface"
+					{
+						"Pos"		"2 1 1"
+					}
+					"Surface"
+					{
+						"Pos"		"2 2 1"
+					}
+				}	
+			}
+		}
+	}

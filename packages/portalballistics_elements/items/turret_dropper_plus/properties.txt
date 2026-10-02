@@ -1,0 +1,10 @@
+"Properties"
+	{
+	"Authors"		"asd417, garmezon"
+	"Tags"			"Portal: Ballistics; Test Elements"
+	"infoURL"		"https://www.moddb.com/mods/portal-ballistics"
+	"Icon"
+		{
+			"0"	"clean/ballistics_turret_dropper.png"
+		}
+	}
