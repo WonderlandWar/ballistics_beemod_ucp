@@ -3556,28 +3556,6 @@ entity
 }
 entity
 {
-	"id" "10"
-	"classname" "logic_timer"
-	"angles" "0 0 0"
-	"RefireTime" "0.05"
-	"StartDisabled" "1"
-	"targetname" "gun_timer"
-	"UseRandomTime" "0"
-	connections
-	{
-		"OnTimer" "gun_scriptRunScriptCodeAim()0-1"
-	}
-	"origin" "-32 24 -56"
-	editor
-	{
-		"color" "0 100 250"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 5500]"
-	}
-}
-entity
-{
 	"id" "210"
 	"classname" "prop_physics_override"
 	"allowfunnel" "1"
@@ -3616,7 +3594,7 @@ entity
 	connections
 	{
 		"PlayerOn" "gun_eye_measureSetMeasureTarget!player0-1"
-		"PlayerOn" "gun_timerEnable0-1"
+		"PlayerOn" "gun_scriptRunScriptCodemounted = true0-1"
 		"PlayerOn" "gun_laserTurnOn0-1"
 		"PlayerOn" "gun_hit_spriteShowSprite0-1"
 		"PlayerOn" "gun_scriptRunScriptCodelaser_active = true0-1"
@@ -3626,7 +3604,7 @@ entity
 		"PressedBack" "!selfDeactivate0-1"
 		"PressedMoveLeft" "!selfDeactivate0-1"
 		"PressedMoveRight" "!selfDeactivate0-1"
-		"PlayerOff" "gun_timerDisable0-1"
+		"PlayerOff" "gun_scriptRunScriptCodemounted = false0-1"
 		"PlayerOff" "gun_buttonUnlock0.5-1"
 		"PlayerOff" "gun_grabForceDrop0-1"
 		"PlayerOff" "gun_scriptRunScriptCodeGrabHome()0.1-1"

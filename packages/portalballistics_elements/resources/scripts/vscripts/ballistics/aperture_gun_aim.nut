@@ -79,8 +79,12 @@ function SetExit(on) {
 // the first mount or first fire (both set laser_active) and never stops, so portals placed later still bend it.
 // It also carries gun_bullets_base (the P1-style func_tanks, sprites and beam end hang off it) on "muzzle".
 laser_active <- false;
+mounted <- false; // set by gun_ui PlayerOn / PlayerOff
 
+// Single driver for aiming and the laser: one fixed order every tick. (SetPoseValue is queued I/O,
+// so the laser still reads the pose from one tick behind.)
 function LaserThink() {
+	if (mounted) Aim();
 	if (laser_active) Laser();
 	return 0.01; // next tick; 0 or nothing falls back to sv_script_think_interval (0.1s)
 }
