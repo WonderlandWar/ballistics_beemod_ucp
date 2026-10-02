@@ -64,10 +64,10 @@
 				"Voxel"
 				{
 					"Pos"		"0 0 0"
-					"Surface"
-					{
-						"Normal"	"0 0 1"
-					}
+					"Normal"	"0 0 1"
+					// Only the bottom quarter (32 units) next to the mounting surface.
+					"SubPos1"	"0 0 0"
+					"SubPos2"	"3 3 0"
 				}
 			}
 			"ConnectionPoints"
