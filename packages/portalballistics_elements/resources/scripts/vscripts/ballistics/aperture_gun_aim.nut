@@ -118,7 +118,20 @@ function PortalAt(pos) {
 // Coop or extra pairs need real linkage, which P2 VScript can't read.
 function OtherPortal(portal) {
 	for (local p = null; p = Entities.FindByClassname(p, "prop_portal");)
-		if (p != portal) return p;
+	{
+		if (p == portal)
+		{
+			continue;
+		}
+		
+		if ( portal.GetTeam() != p.GetTeam() )
+		{
+			continue;
+		}
+		
+		return p;
+	}
+	
 	return null;
 }
 
