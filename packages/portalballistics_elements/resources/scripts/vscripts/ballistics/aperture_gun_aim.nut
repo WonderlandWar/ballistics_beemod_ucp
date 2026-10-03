@@ -91,15 +91,17 @@ function LaserThink() {
 
 function Laser() {
 	if (!gun) Resolve();
-	local id = gun.LookupAttachment("laser");
-	local start = gun.GetAttachmentOrigin(id);
-	local ang = gun.GetAttachmentAngles(id);
-	laser.SetOrigin(start);
+	local muzzleid = gun.LookupAttachment("muzzle");
+	local laserid = gun.LookupAttachment("laser");
+	local startMuzzle = gun.GetAttachmentOrigin(muzzleid);
+	local startLaser = gun.GetAttachmentOrigin(laserid);
+	local ang = gun.GetAttachmentAngles(laserid);
+	laser.SetOrigin(startLaser);
 	laser.SetAngles(ang.x, ang.y, ang.z);
 	local dir = laser.GetLeftVector() * -1;
-	bullets.SetOrigin(gun.GetAttachmentOrigin(gun.LookupAttachment("muzzle")));
+	bullets.SetOrigin(startMuzzle);
 	bullets.SetForwardVector(dir);
-	hit_target.SetOrigin(LaserExit(Trace(start, dir), dir));
+	hit_target.SetOrigin(LaserExit(Trace(startMuzzle, dir), dir));
 }
 
 function PortalAt(pos) {
