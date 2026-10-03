@@ -75,10 +75,10 @@ function SetExit(on) {
 }
 
 // The beam follows the model's "laser" attachment, straight out of the barrel (attachment -Y).
-// Not parented (env_laser parenting is buggy, see VDC): LaserThink moves it every tick. It starts on
-// the first mount or first fire (both set laser_active) and never stops, so portals placed later still bend it.
+// Not parented (env_laser parenting is buggy, see VDC): LaserThink moves it every tick. It is on from
+// map start (gun_laser and gun_hit_sprite start on) and never stops, so portals placed later still bend it.
 // It also carries gun_bullets_base (the P1-style func_tanks, sprites and beam end hang off it) on "muzzle".
-laser_active <- false;
+laser_active <- true;
 mounted <- false; // set by gun_ui PlayerOn / PlayerOff
 
 // Single driver for aiming and the laser: one fixed order every tick. (SetPoseValue is queued I/O,
@@ -102,6 +102,24 @@ function Laser() {
 	bullets.SetOrigin(startMuzzle);
 	bullets.SetForwardVector(dir);
 	hit_target.SetOrigin(LaserExit(Trace(startMuzzle, dir), dir));
+}
+
+// The 15 gun_bullets func_tanks only fire when they think, every 0.1s, and they all spawn active on
+// the same tick, so they fire in one volley per think. The Activate input restarts a tank's think
+// clock, so activating them staggered across one think interval spreads their shots out. Called by
+// gun_fire_start, which also sets SetFireRate 12: at exactly 10, int(0.1 * 10) can round down to 0
+// and skip a think (0.2s gaps let the persistent target's 0.15s timer run out). 12 still fires one
+// bullet per think, so each tank stays at 10 shots/s.
+// ponytail: delays land on server ticks, so a few tanks still share each tick.
+THINK_INTERVAL <- 0.1; // func_tank's think interval when aiming at a target entity
+
+function StartBullets() {
+	local tanks = [];
+	for (local e = null; e = Entities.FindByName(e, PREFIX + "gun_bullets");) tanks.append(e);
+	foreach (i, e in tanks) {
+		EntFireByHandle(e, "SetTargetEntityName", PREFIX + "gun_beam_end", 0, null, null);
+		EntFireByHandle(e, "Activate", "", i * THINK_INTERVAL / tanks.len(), null, null);
+	}
 }
 
 function PortalAt(pos) {
