@@ -70,7 +70,7 @@ $collisionmodel "target_box_physics.smd"
 {
 	$mass 40
 	$inertia 1
-	$damping 0.1
+	$damping 0
 	$rotdamping 0
 	$rootbone " "
 
