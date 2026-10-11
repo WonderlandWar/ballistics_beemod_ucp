@@ -9,19 +9,22 @@ local me = self.GetName();
 PREFIX <- me.slice(0, me.len() - "gun_script".len());
 
 gun <- null;
+grab <- null;
+eye_measure <- null;
 
 function Resolve() {
-	gun        = Entities.FindByName(null, PREFIX + "gun");
-	eye        <- Entities.FindByName(null, PREFIX + "gun_eye");
-	pivot      <- Entities.FindByName(null, PREFIX + "gun_pivot");
-	hit_target <- Entities.FindByName(null, PREFIX + "gun_hit");
-	yaw_ctrl   <- Entities.FindByName(null, PREFIX + "gun_yaw");
-	pitch_ctrl <- Entities.FindByName(null, PREFIX + "gun_pitch");
-	grab       <- Entities.FindByName(null, PREFIX + "gun_grab");
-	laser      <- Entities.FindByName(null, PREFIX + "gun_laser");
-	laser_exit <- Entities.FindByName(null, PREFIX + "gun_laser_exit");
-	hit_exit   <- Entities.FindByName(null, PREFIX + "gun_hit_exit");
-	bullets    <- Entities.FindByName(null, PREFIX + "gun_bullets_base");
+	gun        	= Entities.FindByName(null, PREFIX + "gun");
+	eye        	<- Entities.FindByName(null, PREFIX + "gun_eye");
+	pivot      	<- Entities.FindByName(null, PREFIX + "gun_pivot");
+	hit_target 	<- Entities.FindByName(null, PREFIX + "gun_hit");
+	yaw_ctrl   	<- Entities.FindByName(null, PREFIX + "gun_yaw");
+	pitch_ctrl 	<- Entities.FindByName(null, PREFIX + "gun_pitch");
+	grab       	<- Entities.FindByName(null, PREFIX + "gun_grab");
+	laser      	<- Entities.FindByName(null, PREFIX + "gun_laser");
+	laser_exit 	<- Entities.FindByName(null, PREFIX + "gun_laser_exit");
+	hit_exit   	<- Entities.FindByName(null, PREFIX + "gun_hit_exit");
+	bullets    	<- Entities.FindByName(null, PREFIX + "gun_bullets_base");
+	eye_measure	<- Entities.FindByName(null, PREFIX + "gun_eye_measure");
 }
 
 // P2's TraceLine only hits the world; env_laser also stops at entities, so test these by bounding box.
@@ -132,20 +135,12 @@ function PortalAt(pos) {
 	return null;
 }
 
-// ponytail: assumes a single portal pair (SP); the linked portal is "the other prop_portal".
-// Coop or extra pairs need real linkage, which P2 VScript can't read.
+// Finds the linked portal based on the portal's team.
 function OtherPortal(portal) {
 	for (local p = null; p = Entities.FindByClassname(p, "prop_portal");)
 	{
-		if (p == portal)
-		{
-			continue;
-		}
-		
-		if ( portal.GetTeam() != p.GetTeam() )
-		{
-			continue;
-		}
+		if (p == portal) continue;
+		if ( portal.GetTeam() != p.GetTeam() ) continue;
 		
 		return p;
 	}
@@ -179,14 +174,34 @@ function LaserExit(hit, dir) {
 	return entry;
 }
 
+// Called when the game_ui entity activates
+function OnGrab() {
+	if (!activator) return;
+	
+	grab.SetTeam( activator.GetTeam() );
+	
+	if ( activator.GetTeam() == 0 ) // In singleplayer, the player doesn't have a name.
+	{
+		EntFireByHandle( eye_measure, "SetMeasureTarget", "!player", 0.00, activator, activator );	
+	}
+	else
+	{
+		EntFireByHandle( eye_measure, "SetMeasureTarget", activator.GetName(), 0.00, activator, activator );	
+	}
+}
+
 // gun_grab is held while mounted; +use drops it, and the drop dismounts.
 function GrabHome() {
 	if (!gun) Resolve();
 	if (!grab) return;
 	grab.SetOrigin(pivot.GetOrigin());
 	grab.SetAngles(0, 0, 0);
-	grab.SetVelocity(Vector(0, 0, 0));
+	grab.SetVelocity(Vector(0, 0, 0));	
 	EntFireByHandle(grab, "DisableMotion", "", 0, null, null);
+	
+	// Maybe not the best place to put these, but GrabHome is called when the game_ui turns off.
+	grab.SetTeam( 0 );
+	EntFireByHandle( eye_measure, "SetMeasureTarget", "", 0.00, activator, activator );	
 }
 
 function Clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
@@ -195,9 +210,24 @@ function SetPose(ctrl, deg, lo, hi) {
 	EntFireByHandle(ctrl, "SetPoseValue", ((Clamp(deg, lo, hi) - lo) / (hi - lo)).tostring(), 0, null, null);
 }
 
+function GetAimingPlayer() {
+
+	// If there isn't a grab entity, get the first player.
+	if (!grab) return Entities.FindByClassname(null, "player");
+
+	// The grab entity's team gets set to the grabbing player's team. Find them based on that.
+	for (local pl = null; pl = Entities.FindByClassname(pl, "player");)
+	{
+		if ( pl.GetTeam() != grab.GetTeam() ) continue;		
+		return pl;
+	}
+	
+	return null;
+}
+
 function Aim() {
 	if (!gun) Resolve();
-	local player = Entities.FindByClassname(null, "player");
+	local player = GetAimingPlayer();
 	if (!gun || !player) return;
 
 	local start = eye.GetOrigin();
