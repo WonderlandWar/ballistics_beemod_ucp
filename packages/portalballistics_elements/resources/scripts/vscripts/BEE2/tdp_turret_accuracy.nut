@@ -1,5 +1,4 @@
 hurt <- Entities.FindByName(null, "@tdp_accurate_hurt")
-push <- Entities.FindByName(null, "@tdp_accurate_push")
 turrets <- {}
 LOCK_TIME <- 0.9
 LOCK_RANGE <- 1024.0
@@ -23,7 +22,7 @@ function watch(turret) {
 function can_hit(ent, shooter) {
 	if (ent == shooter) return false
 	local cls = ent.GetClassname()
-	return cls == "player" || cls == "prop_dynamic" || cls == "phys_bone_follower"
+	return cls == "prop_dynamic" || cls == "phys_bone_follower" // props only, never the player
 }
 
 function ray_dist(point, start, dir, length) {
@@ -75,10 +74,6 @@ function shoot(turret, scope) {
 	local victim = victim_at(hit, turret)
 	if (victim == null) return
 	EntFireByHandle(hurt, "Hurt", "", 0.00, victim, turret)
-	push.SetOrigin(hit - dir * 16)
-	push.SetAngles(ang.x, ang.y, 0)
-	EntFireByHandle(push, "Enable", "", 0.00, turret, turret)
-	EntFireByHandle(push, "Disable", "", 0.05, turret, turret)
 }
 
 function Think() {

@@ -63,27 +63,6 @@ entity
 		"logicalpos" "[0 0]"
 	}
 }
-entity
-{
-	"id" "4"
-	"classname" "point_push"
-	"targetname" "@tdp_accurate_push"
-	"angles" "0 0 0"
-	"spawnflags" "26"
-	"enabled" "0"
-	"magnitude" "100"
-	"radius" "32"
-	"inner_radius" "0"
-	"influence_cone" "0"
-	"origin" "0 32 0"
-	editor
-	{
-		"color" "220 30 220"
-		"visgroupshown" "1"
-		"visgroupautoshown" "1"
-		"logicalpos" "[0 0]"
-	}
-}
 cameras
 {
 	"activecamera" "-1"
