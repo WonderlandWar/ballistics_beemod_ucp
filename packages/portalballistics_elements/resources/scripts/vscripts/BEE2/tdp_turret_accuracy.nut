@@ -11,8 +11,18 @@ function watch(turret) {
 	scope.pt_enemy <- null
 	scope.pt_since <- 0.0
 	scope.pt_on_tipped <- function() { pt_tipped = true }
-	scope.pt_on_pickup <- function() { pt_held = true }
-	scope.pt_on_drop <- function() { pt_held = false }
+	// The stock turret keeps firing at its targets while carried (bug in P1 and P2).
+	// Make it like them until dropped, then restore the ranks from persistent_target_globals / target_cube.
+	scope.pt_on_pickup <- function() {
+		pt_held = true
+		EntFireByHandle(self, "SetRelationship", "persistenttarget* D_LI 99", 0.00, null, null)
+		EntFireByHandle(self, "SetRelationship", "cube_addon_bullseye_target_box D_LI 99", 0.00, null, null)
+	}
+	scope.pt_on_drop <- function() {
+		pt_held = false
+		EntFireByHandle(self, "SetRelationship", "persistenttarget* D_HT 1", 0.00, null, null)
+		EntFireByHandle(self, "SetRelationship", "cube_addon_bullseye_target_box D_HT 2", 0.00, null, null)
+	}
 	turret.ConnectOutput("OnTipped", "pt_on_tipped")
 	turret.ConnectOutput("OnPhysGunPickup", "pt_on_pickup")
 	turret.ConnectOutput("OnPhysGunDrop", "pt_on_drop")
@@ -45,6 +55,42 @@ function aimed_enemy(start, dir, length) {
 	return null
 }
 
+// TraceLine only hits the world, so cubes etc. are tested by bounding box (same as aperture_gun_aim.nut).
+BLOCKERS <- ["player", "prop_weighted_cube", "prop_monster_box", "prop_physics", "prop_physics_override", "npc_portal_turret_floor"]
+
+// Distance along dir to e's box, or 99999. Boxes the ray starts inside (the shooter) are ignored.
+function ray_box(start, dir, e) {
+	local lo = e.GetBoundingMins(), hi = e.GetBoundingMaxs()
+	local los = [lo.x, lo.y, lo.z], his = [hi.x, hi.y, hi.z]
+	local axes = e.GetClassname() == "player" ? [Vector(1, 0, 0), Vector(0, 1, 0), Vector(0, 0, 1)]
+		: [e.GetForwardVector(), e.GetLeftVector(), e.GetUpVector()]
+	local p = start - e.GetOrigin(), t0 = -99999.0, t1 = 99999.0
+	for (local i = 0; i < 3; i++) {
+		local s = p.Dot(axes[i]), d = dir.Dot(axes[i])
+		if (fabs(d) < 0.000001) {
+			if (s < los[i] || s > his[i]) return 99999
+			continue
+		}
+		local a = (los[i] - s) / d, b = (his[i] - s) / d
+		if (a > b) { local tmp = a; a = b; b = tmp }
+		if (a > t0) t0 = a
+		if (b < t1) t1 = b
+		if (t0 > t1) return 99999
+	}
+	return t0 < 0 ? 99999 : t0
+}
+
+// Where the shot stops: the world, or the nearest cube/turret/player box.
+function shot_dist(start, dir) {
+	local dist = 4096 * TraceLine(start, start + dir * 4096, null)
+	foreach (cls in BLOCKERS)
+		for (local e = Entities.FindByClassname(null, cls); e != null; e = Entities.FindByClassname(e, cls)) {
+			local d = ray_box(start, dir, e)
+			if (d < dist) dist = d
+		}
+	return dist
+}
+
 function victim_at(point, shooter) {
 	for (local ent = Entities.FindInSphere(null, point, 4); ent != null; ent = Entities.FindInSphere(ent, point, 4)) {
 		if (can_hit(ent, shooter)) return ent
@@ -59,10 +105,9 @@ function shoot(turret, scope) {
 	local pitch = ang.x * PI / 180
 	local yaw = ang.y * PI / 180
 	local dir = Vector(cos(pitch) * cos(yaw), cos(pitch) * sin(yaw), -sin(pitch))
-	local stop = start + dir * 4096
-	local frac = TraceLine(start, stop, turret)
-	local hit = start + (stop - start) * frac
-	local enemy = aimed_enemy(start, dir, frac * 4096 + 32)
+	local reach = shot_dist(start, dir)
+	local hit = start + dir * reach
+	local enemy = aimed_enemy(start, dir, reach + 32)
 	if (enemy != scope.pt_enemy) {
 		scope.pt_enemy = enemy
 		scope.pt_since = Time()

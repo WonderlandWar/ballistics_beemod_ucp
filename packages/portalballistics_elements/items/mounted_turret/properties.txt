@@ -6,6 +6,6 @@
 	"infoURL"		"https://www.moddb.com/mods/portal-ballistics"
 	"Icon"
 		{
-			"0"	"clean/mounted_turret.png"
+			"0"	"clean/aperture_gun_p2_old.png"
 		}
 	}

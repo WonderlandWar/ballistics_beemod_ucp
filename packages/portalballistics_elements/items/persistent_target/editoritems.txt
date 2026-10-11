@@ -13,7 +13,7 @@
 				"Palette"
 				{
 					"Tooltip"		"PERSISTENT TARGET"
-					"Image"			"palette/persistent_target.png"
+					"Image"			"palette/persistent_target_old.png"
 					"Position"		"1 0 0"
 				}
 				"Sounds"

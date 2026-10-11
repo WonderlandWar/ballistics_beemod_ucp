@@ -27,8 +27,7 @@ function Resolve() {
 	eye_measure	<- Entities.FindByName(null, PREFIX + "gun_eye_measure");
 }
 
-// P2's TraceLine only hits the world; env_laser also stops at entities, so test these by bounding box.
-// ponytail: boxes and a fixed class list; add a class here if something else should block the beam.
+// P2's TraceLine only hits the world; the beam should also stop at entities, so test these by bounding box.
 BLOCKERS <- ["player", "prop_weighted_cube", "prop_monster_box", "prop_physics", "prop_physics_override", "npc_portal_turret_floor"];
 
 // Distance along dir to e's box (oriented by its angles; the player's box is world-aligned), or MAX_DIST.
@@ -78,7 +77,7 @@ function SetExit(on) {
 }
 
 // The beam follows the model's "laser" attachment, straight out of the barrel (attachment -Y).
-// Not parented (env_laser parenting is buggy, see VDC): LaserThink moves it every tick. It is on from
+// gun_laser is an env_beam (env_laser always deals damage, even 0). LaserThink moves it every tick. It is on from
 // map start (gun_laser and gun_hit_sprite start on) and never stops, so portals placed later still bend it.
 // It also carries gun_bullets_base (the P1-style func_tanks, sprites and beam end hang off it) on "muzzle".
 laser_active <- true;
@@ -113,7 +112,6 @@ function Laser() {
 // gun_fire_start, which also sets SetFireRate 12: at exactly 10, int(0.1 * 10) can round down to 0
 // and skip a think (0.2s gaps let the persistent target's 0.15s timer run out). 12 still fires one
 // bullet per think, so each tank stays at 10 shots/s.
-// ponytail: delays land on server ticks, so a few tanks still share each tick.
 THINK_INTERVAL <- 0.1; // func_tank's think interval when aiming at a target entity
 
 function StartBullets() {

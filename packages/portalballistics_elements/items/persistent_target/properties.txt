@@ -6,6 +6,6 @@
 	"infoURL"		"https://www.moddb.com/mods/portal-ballistics"
 	"Icon"
 		{
-			"0"	"clean/persistent_target.png"
+			"0"	"clean/persistent_target_old.png"
 		}
 	}

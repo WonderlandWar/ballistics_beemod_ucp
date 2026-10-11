@@ -13,7 +13,7 @@
 				"Palette"
 				{
 					"Tooltip"		"MOUNTED TURRET"
-					"Image"			"palette/mounted_turret.png"
+					"Image"			"palette/mounted_turret_old.png"
 					"Position"		"1 0 0"
 				}
 				"Sounds"
