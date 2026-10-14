@@ -2636,7 +2636,7 @@ entity
 {
 	"id" "1416"
 	"classname" "point_hurt"
-	"Damage" "12"
+	"Damage" "1"
 	"DamageDelay" "1"
 	"DamageRadius" "1"
 	"DamageTarget" "!activator"

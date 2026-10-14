@@ -74,7 +74,8 @@ function Trace(start, dir) {
 // Portal pass-through for the laser.
 PORTAL_HALF_W <- 32.0;  PORTAL_HALF_H <- 56.0;
 exit_on <- false;
-exit_ent <- null; // blocker the exit beam stopped at
+exit_ent <- null; // blocker the exit beam stopped at, and the exit beam's direction
+exit_dir <- null;
 
 function SetExit(on) {
 	if (on == exit_on) return;
@@ -115,7 +116,7 @@ function Laser() {
 	bullets.SetOrigin(startMuzzle);
 	bullets.SetForwardVector(dir);
 	local hit = Trace(startMuzzle, dir);
-	shot_pos = hit; shot_ent = trace_ent;
+	shot_pos = hit; shot_ent = trace_ent; shot_dir = dir;
 	hit_target.SetOrigin(LaserExit(hit, dir));
 }
 
@@ -128,14 +129,20 @@ function Laser() {
 THINK_INTERVAL <- 0.1; // func_tank's think interval when aiming at a target entity
 
 // The gun used to have 15 tanks; 12 were replaced by gun_hurt to cut the bullet impact effects.
-// Every HURT_INTERVAL while firing, gun_hurt (Damage 12, bullet type) hits whatever the shot reaches:
-// the missing 12 tanks' 1 damage x 10 shots/s each. Like tdp_turret_accuracy.nut, a prop_dynamic or
-// bone follower (the persistent target) counts when it's within 4 units of where the trace stopped.
+// Every HURT_INTERVAL while firing, gun_hurt (Damage 1, bullet type) hits whatever the shot reaches
+// HURT_SHOTS times: one per missing tank, each of which did 1 damage per 0.1s shot. Like
+// tdp_turret_accuracy.nut, a prop_dynamic or bone follower (the persistent target) counts when it's
+// within 4 units of where the trace stopped.
+// Each Hurt also pushes like one bullet (point_hurt's bullet damage force, applied by the engine with
+// the victim's real mass), aimed from gun_hurt toward the victim, so gun_hurt is moved behind the
+// victim along the shot first. That keeps the fling the 15 tanks gave cubes and turrets.
 HURT_INTERVAL <- 0.1;
+HURT_SHOTS    <- 12;
 firing    <- false; // set by StartBullets, cleared by gun_fire_stop
 next_hurt <- 0.0;
-shot_pos  <- null;  // where the beam stopped, and the blocker there (set by Laser)
+shot_pos  <- null;  // where the beam stopped, the blocker there, and the beam's direction (set by Laser)
 shot_ent  <- null;
+shot_dir  <- null;
 
 function HurtVictim(pos, ent) {
 	if (ent) return ent;
@@ -150,7 +157,8 @@ function Hurt() {
 	if (!hurt || !shot_pos) return;
 	local victim = exit_on ? HurtVictim(hit_exit.GetOrigin(), exit_ent) : HurtVictim(shot_pos, shot_ent);
 	if (!victim || !victim.IsValid()) return;
-	EntFireByHandle(hurt, "Hurt", "", 0, victim, victim);
+	hurt.SetOrigin(victim.GetOrigin() - (exit_on ? exit_dir : shot_dir) * 64);
+	for (local i = 0; i < HURT_SHOTS; i++) EntFireByHandle(hurt, "Hurt", "", 0, victim, victim);
 	EntFireByHandle(hurt, "TurnOff", "", 0, null, null); // Hurt also starts point_hurt's repeat think
 }
 
@@ -248,6 +256,7 @@ function LaserExit(hit, dir) {
 	laser_exit.SetOrigin(start);
 	hit_exit.SetOrigin(Trace(start, out_dir));
 	exit_ent = trace_ent;
+	exit_dir = out_dir;
 	SetExit(true);
 	return entry;
 }
