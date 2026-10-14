@@ -27,7 +27,7 @@ function Resolve() {
 	eye_measure	<- Entities.FindByName(null, PREFIX + "gun_eye_measure");
 }
 
-// P2's TraceLine only hits the world; the beam should also stop at entities, so test these by bounding box.
+// P2's TraceLine only hits the world; env_laser also stops at entities, so test these by bounding box.
 BLOCKERS <- ["player", "prop_weighted_cube", "prop_monster_box", "prop_physics", "prop_physics_override", "npc_portal_turret_floor"];
 
 // Distance along dir to e's box (oriented by its angles; the player's box is world-aligned), or MAX_DIST.
@@ -77,7 +77,7 @@ function SetExit(on) {
 }
 
 // The beam follows the model's "laser" attachment, straight out of the barrel (attachment -Y).
-// gun_laser is an env_beam (env_laser always deals damage, even 0). LaserThink moves it every tick. It is on from
+// Not parented (env_laser parenting is buggy, see VDC): LaserThink moves it every tick. It is on from
 // map start (gun_laser and gun_hit_sprite start on) and never stops, so portals placed later still bend it.
 // It also carries gun_bullets_base (the P1-style func_tanks, sprites and beam end hang off it) on "muzzle".
 laser_active <- true;
@@ -123,8 +123,24 @@ function StartBullets() {
 	}
 }
 
+// A fizzled or never-placed prop_portal stays in the map (inactive, at its last spot), so the
+// gun_portal_detector (a func_portal_detector covering the whole map, all portal IDs) reports each
+// portal opening (OnStartTouchPortal) and closing (OnEndTouchPortal) here, with the portal as !activator.
+// The flag lives in the portal's own scope, so every gun shares it.
+function SetPortalActive(on) {
+	if (!activator || activator.GetClassname() != "prop_portal") return;
+	activator.ValidateScriptScope();
+	activator.GetScriptScope().bal_active <- on;
+}
+
+function IsActive(p) {
+	local s = p.GetScriptScope();
+	return s != null && ("bal_active" in s) && s.bal_active;
+}
+
 function PortalAt(pos) {
 	for (local p = null; p = Entities.FindByClassname(p, "prop_portal");) {
+		if (!IsActive(p)) continue;
 		local d = pos - p.GetOrigin();
 		if (fabs(d.Dot(p.GetForwardVector())) <= 8.0
 			&& fabs(d.Dot(p.GetLeftVector())) <= PORTAL_HALF_W
@@ -139,6 +155,7 @@ function OtherPortal(portal) {
 	{
 		if (p == portal) continue;
 		if ( portal.GetTeam() != p.GetTeam() ) continue;
+		if (!IsActive(p)) continue; // unlinked: the partner isn't placed
 		
 		return p;
 	}

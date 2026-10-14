@@ -338,24 +338,21 @@ entity
 entity
 {
 	"id" "320"
-	"classname" "env_beam"
+	"classname" "env_laser"
 	"angles" "0 0 0"
-	"BoltWidth" "2"
 	"damage" "0"
-	"HDRColorScale" "1.0"
-	"life" "0"
-	"LightningEnd" "gun_hit_sprite"
-	"LightningStart" "gun_laser"
-	"NoiseAmplitude" "0"
-	"Radius" "256"
+	"dissolvetype" "None"
+	"hdrcolorscale" "1.0"
+	"LaserTarget" "gun_hit"
 	"renderamt" "160"
 	"rendercolor" "255 0 0"
+	"rendermode" "1"
 	"spawnflags" "1"
-	"StrikeTime" "1"
 	"targetname" "gun_laser"
+	"targetpoint" "0 0 0"
 	"texture" "effects/laser1.vmt"
 	"TextureScroll" "1"
-	"TouchType" "0"
+	"width" "2"
 	"origin" "32 0 -14"
 	editor
 	{
@@ -368,24 +365,20 @@ entity
 entity
 {
 	"id" "321"
-	"classname" "env_beam"
+	"classname" "env_laser"
 	"angles" "0 0 0"
-	"BoltWidth" "2"
 	"damage" "0"
-	"HDRColorScale" "1.0"
-	"life" "0"
-	"LightningEnd" "gun_hit_exit_sprite"
-	"LightningStart" "gun_laser_exit"
-	"NoiseAmplitude" "0"
-	"Radius" "256"
+	"dissolvetype" "None"
+	"hdrcolorscale" "1.0"
+	"LaserTarget" "gun_hit_exit"
 	"renderamt" "160"
 	"rendercolor" "255 0 0"
+	"rendermode" "1"
 	"spawnflags" "0"
-	"StrikeTime" "1"
 	"targetname" "gun_laser_exit"
 	"texture" "effects/laser1.vmt"
 	"TextureScroll" "1"
-	"TouchType" "0"
+	"width" "2"
 	"origin" "0 0 -32"
 	editor
 	{
@@ -3983,6 +3976,145 @@ entity
 		"visgroupshown" "1"
 		"visgroupautoshown" "1"
 		"logicalpos" "[0 500]"
+	}
+}
+entity
+{
+	"id" "1408"
+	"classname" "func_portal_detector"
+	"CheckAllIDs" "1"
+	"LinkageGroupID" "0"
+	"spawnflags" "0"
+	"targetname" "gun_portal_detector"
+	connections
+	{
+		"OnStartTouchPortal" "gun_scriptRunScriptCodeSetPortalActive(true)0-1"
+		"OnEndTouchPortal" "gun_scriptRunScriptCodeSetPortalActive(false)0-1"
+	}
+	solid
+	{
+		"id" "1409"
+		side
+		{
+			"id" "1410"
+			"plane" "(-8192 8192 8192) (8192 8192 8192) (8192 -8192 8192)"
+			vertices_plus
+			{
+				"v" "-8192 8192 8192"
+				"v" "8192 8192 8192"
+				"v" "8192 -8192 8192"
+				"v" "-8192 -8192 8192"
+			}
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 0] 0.25"
+			"vaxis" "[0 -1 0 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "1411"
+			"plane" "(-8192 -8192 -8192) (8192 -8192 -8192) (8192 8192 -8192)"
+			vertices_plus
+			{
+				"v" "-8192 -8192 -8192"
+				"v" "8192 -8192 -8192"
+				"v" "8192 8192 -8192"
+				"v" "-8192 8192 -8192"
+			}
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 0] 0.25"
+			"vaxis" "[0 -1 0 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "1412"
+			"plane" "(-8192 8192 8192) (-8192 -8192 8192) (-8192 -8192 -8192)"
+			vertices_plus
+			{
+				"v" "-8192 8192 8192"
+				"v" "-8192 -8192 8192"
+				"v" "-8192 -8192 -8192"
+				"v" "-8192 8192 -8192"
+			}
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[0 1 0 0] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "1413"
+			"plane" "(8192 8192 -8192) (8192 -8192 -8192) (8192 -8192 8192)"
+			vertices_plus
+			{
+				"v" "8192 8192 -8192"
+				"v" "8192 -8192 -8192"
+				"v" "8192 -8192 8192"
+				"v" "8192 8192 8192"
+			}
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[0 1 0 0] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "1414"
+			"plane" "(8192 8192 8192) (-8192 8192 8192) (-8192 8192 -8192)"
+			vertices_plus
+			{
+				"v" "8192 8192 8192"
+				"v" "-8192 8192 8192"
+				"v" "-8192 8192 -8192"
+				"v" "8192 8192 -8192"
+			}
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 0] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		side
+		{
+			"id" "1415"
+			"plane" "(8192 -8192 -8192) (-8192 -8192 -8192) (-8192 -8192 8192)"
+			vertices_plus
+			{
+				"v" "8192 -8192 -8192"
+				"v" "-8192 -8192 -8192"
+				"v" "-8192 -8192 8192"
+				"v" "8192 -8192 8192"
+			}
+			"material" "TOOLS/TOOLSTRIGGER"
+			"uaxis" "[1 0 0 0] 0.25"
+			"vaxis" "[0 0 -1 0] 0.25"
+			"rotation" "0"
+			"lightmapscale" "16"
+			"smoothing_groups" "0"
+		}
+		editor
+		{
+			"color" "220 30 220"
+			"visgroupshown" "1"
+			"visgroupautoshown" "1"
+		}
+	}
+	editor
+	{
+		"color" "220 30 220"
+		"visgroupshown" "1"
+		"visgroupautoshown" "1"
+		"logicalpos" "[0 1000]"
 	}
 }
 entity
