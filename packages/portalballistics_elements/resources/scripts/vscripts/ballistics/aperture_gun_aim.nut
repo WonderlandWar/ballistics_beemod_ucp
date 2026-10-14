@@ -11,6 +11,7 @@ PREFIX <- me.slice(0, me.len() - "gun_script".len());
 gun <- null;
 grab <- null;
 eye_measure <- null;
+hurt <- null;
 
 function Resolve() {
 	gun        	= Entities.FindByName(null, PREFIX + "gun");
@@ -25,6 +26,7 @@ function Resolve() {
 	hit_exit   	<- Entities.FindByName(null, PREFIX + "gun_hit_exit");
 	bullets    	<- Entities.FindByName(null, PREFIX + "gun_bullets_base");
 	eye_measure	<- Entities.FindByName(null, PREFIX + "gun_eye_measure");
+	hurt       	<- Entities.FindByName(null, PREFIX + "gun_hurt");
 }
 
 // P2's TraceLine only hits the world; env_laser also stops at entities, so test these by bounding box.
@@ -54,13 +56,17 @@ function RayBox(start, dir, e) {
 }
 
 // Where a beam from start along dir stops: the world or the nearest blocker (our own entities excluded).
+// The blocker it stopped at (or null for the world) is left in trace_ent.
+trace_ent <- null;
+
 function Trace(start, dir) {
 	local dist = MAX_DIST * TraceLine(start, start + dir * MAX_DIST, null);
+	trace_ent = null;
 	foreach (cls in BLOCKERS)
 		for (local e = null; e = Entities.FindByClassname(e, cls);)
 			if (e.GetName().find(PREFIX) != 0) {
 				local d = RayBox(start, dir, e);
-				if (d < dist) dist = d;
+				if (d < dist) { dist = d; trace_ent = e; }
 			}
 	return start + dir * dist;
 }
@@ -68,6 +74,7 @@ function Trace(start, dir) {
 // Portal pass-through for the laser.
 PORTAL_HALF_W <- 32.0;  PORTAL_HALF_H <- 56.0;
 exit_on <- false;
+exit_ent <- null; // blocker the exit beam stopped at
 
 function SetExit(on) {
 	if (on == exit_on) return;
@@ -88,6 +95,10 @@ mounted <- false; // set by gun_ui PlayerOn / PlayerOff
 function LaserThink() {
 	if (mounted) Aim();
 	if (laser_active) Laser();
+	if (firing && Time() >= next_hurt) {
+		next_hurt = Time() + HURT_INTERVAL;
+		Hurt();
+	}
 	return 0.01; // next tick; 0 or nothing falls back to sv_script_think_interval (0.1s)
 }
 
@@ -103,10 +114,12 @@ function Laser() {
 	local dir = laser.GetLeftVector() * -1;
 	bullets.SetOrigin(startMuzzle);
 	bullets.SetForwardVector(dir);
-	hit_target.SetOrigin(LaserExit(Trace(startMuzzle, dir), dir));
+	local hit = Trace(startMuzzle, dir);
+	shot_pos = hit; shot_ent = trace_ent;
+	hit_target.SetOrigin(LaserExit(hit, dir));
 }
 
-// The 15 gun_bullets func_tanks only fire when they think, every 0.1s, and they all spawn active on
+// The 3 gun_bullets func_tanks only fire when they think, every 0.1s, and they all spawn active on
 // the same tick, so they fire in one volley per think. The Activate input restarts a tank's think
 // clock, so activating them staggered across one think interval spreads their shots out. Called by
 // gun_fire_start, which also sets SetFireRate 12: at exactly 10, int(0.1 * 10) can round down to 0
@@ -114,7 +127,36 @@ function Laser() {
 // bullet per think, so each tank stays at 10 shots/s.
 THINK_INTERVAL <- 0.1; // func_tank's think interval when aiming at a target entity
 
+// The gun used to have 15 tanks; 12 were replaced by gun_hurt to cut the bullet impact effects.
+// Every HURT_INTERVAL while firing, gun_hurt (Damage 12, bullet type) hits whatever the shot reaches:
+// the missing 12 tanks' 1 damage x 10 shots/s each. Like tdp_turret_accuracy.nut, a prop_dynamic or
+// bone follower (the persistent target) counts when it's within 4 units of where the trace stopped.
+HURT_INTERVAL <- 0.1;
+firing    <- false; // set by StartBullets, cleared by gun_fire_stop
+next_hurt <- 0.0;
+shot_pos  <- null;  // where the beam stopped, and the blocker there (set by Laser)
+shot_ent  <- null;
+
+function HurtVictim(pos, ent) {
+	if (ent) return ent;
+	for (local e = null; e = Entities.FindInSphere(e, pos, 4);) {
+		local cls = e.GetClassname();
+		if ((cls == "prop_dynamic" || cls == "phys_bone_follower") && e.GetName().find(PREFIX) != 0) return e;
+	}
+	return null;
+}
+
+function Hurt() {
+	if (!hurt || !shot_pos) return;
+	local victim = exit_on ? HurtVictim(hit_exit.GetOrigin(), exit_ent) : HurtVictim(shot_pos, shot_ent);
+	if (!victim || !victim.IsValid()) return;
+	EntFireByHandle(hurt, "Hurt", "", 0, victim, victim);
+	EntFireByHandle(hurt, "TurnOff", "", 0, null, null); // Hurt also starts point_hurt's repeat think
+}
+
 function StartBullets() {
+	firing = true;
+	next_hurt = Time();
 	local tanks = [];
 	for (local e = null; e = Entities.FindByName(e, PREFIX + "gun_bullets");) tanks.append(e);
 	foreach (i, e in tanks) {
@@ -149,8 +191,28 @@ function PortalAt(pos) {
 	return null;
 }
 
-// Finds the linked portal based on the portal's team.
+// gun_portal_pair0..3 (func_portal_detectors for one linkage ID each: 0 is singleplayer, coop's
+// portal guns use others) report which pair a portal belongs to and whether it's portal 1 or 2.
+function SetPortalPair(id, slot) {
+	if (!activator || activator.GetClassname() != "prop_portal") return;
+	activator.ValidateScriptScope();
+	local s = activator.GetScriptScope();
+	s.bal_pair <- id;
+	s.bal_slot <- slot;
+}
+
+// Finds the linked portal: same pair ID, other slot. Portals outside IDs 0-3 aren't tagged, so
+// those fall back to matching the portal's team.
 function OtherPortal(portal) {
+	local s = portal.GetScriptScope();
+	if (s != null && ("bal_pair" in s)) {
+		for (local p = null; p = Entities.FindByClassname(p, "prop_portal");) {
+			if (p == portal || !IsActive(p)) continue;
+			local ps = p.GetScriptScope();
+			if (ps != null && ("bal_pair" in ps) && ps.bal_pair == s.bal_pair && ps.bal_slot != s.bal_slot) return p;
+		}
+		return null;
+	}
 	for (local p = null; p = Entities.FindByClassname(p, "prop_portal");)
 	{
 		if (p == portal) continue;
@@ -185,6 +247,7 @@ function LaserExit(hit, dir) {
 
 	laser_exit.SetOrigin(start);
 	hit_exit.SetOrigin(Trace(start, out_dir));
+	exit_ent = trace_ent;
 	SetExit(true);
 	return entry;
 }
