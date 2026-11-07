@@ -3,6 +3,7 @@
 // Pose ranges of aperture_gun_p2.mdl. Yaw + = left, pitch - = up.
 YAW_MIN   <- -90.0;  YAW_MAX   <- 90.0;
 PITCH_MIN <- -80.0;  PITCH_MAX <- 30.0;
+PITCH_UP_LIMIT <- -45.0; // gameplay cap on aiming up; the pose range above stays the model's
 MAX_DIST  <- 8192.0;
 
 local me = self.GetName();
@@ -96,6 +97,7 @@ mounted <- false; // set by gun_ui PlayerOn / PlayerOff
 function LaserThink() {
 	if (mounted) Aim();
 	if (laser_active) Laser();
+	SendPose();
 	if (firing && Time() >= next_hurt) {
 		next_hurt = Time() + HURT_INTERVAL;
 		Hurt();
@@ -293,8 +295,18 @@ function GrabHome() {
 
 function Clamp(v, lo, hi) { return v < lo ? lo : (v > hi ? hi : v); }
 
-function SetPose(ctrl, deg, lo, hi) {
-	EntFireByHandle(ctrl, "SetPoseValue", ((Clamp(deg, lo, hi) - lo) / (hi - lo)).tostring(), 0, null, null);
+function PoseFrac(deg, lo, hi) { return (Clamp(deg, lo, hi) - lo) / (hi - lo); }
+
+// Last pose values (start = the posecontrollers' PoseValue in the VMF). Aim() updates them; SendPose()
+// re-sends them every tick, mounted or not, so coop clients never get stuck mid-interpolation.
+pose_yaw   <- 0.5;
+pose_pitch <- 0.727;
+
+function SendPose() {
+	if (!gun) Resolve();
+	if (!yaw_ctrl || !pitch_ctrl) return;
+	EntFireByHandle(yaw_ctrl,   "SetPoseValue", pose_yaw.tostring(),   0, null, null);
+	EntFireByHandle(pitch_ctrl, "SetPoseValue", pose_pitch.tostring(), 0, null, null);
 }
 
 function GetAimingPlayer() {
@@ -330,6 +342,7 @@ function Aim() {
 	local left = up.Cross(fwd);
 
 	local x = to.Dot(fwd), y = to.Dot(left), z = to.Dot(up);
-	SetPose(yaw_ctrl,   atan2(y, x) * 180.0 / PI,                     YAW_MIN,   YAW_MAX);
-	SetPose(pitch_ctrl, -atan2(z, sqrt(x * x + y * y)) * 180.0 / PI,  PITCH_MIN, PITCH_MAX);
+	local pitch = Clamp(-atan2(z, sqrt(x * x + y * y)) * 180.0 / PI, PITCH_UP_LIMIT, PITCH_MAX);
+	pose_yaw   = PoseFrac(atan2(y, x) * 180.0 / PI, YAW_MIN,   YAW_MAX);
+	pose_pitch = PoseFrac(pitch,                     PITCH_MIN, PITCH_MAX);
 }

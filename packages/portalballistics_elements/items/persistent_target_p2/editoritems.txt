@@ -5,14 +5,14 @@
 		{
 			"SubType"
 			{
-				"Name"			"Ballistics Persistent Target"
+				"Name"			"Persistent Target"
 				"Model"
 				{
 					"ModelName"		"persistent_target_p2.3ds"
 				}
 				"Palette"
 				{
-					"Tooltip"		"BALLISTICS PERSISTENT TARGET"
+					"Tooltip"		"PERSISTENT TARGET"
 					"Image"			"palette/persistent_target.png"
 					"Position"		"1 0 0"
 				}
