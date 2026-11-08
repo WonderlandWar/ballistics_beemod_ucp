@@ -1,6 +1,6 @@
 "Properties"
 	{
-	"Authors"		"Wonderland_War, garmezon"
+	"Authors"		"Wonderland_War, garmezon, asd417"
 	"Tags"			"Portal: Ballistics; Test Elements"
 	"Ent_count"     "50"
 	"Description"

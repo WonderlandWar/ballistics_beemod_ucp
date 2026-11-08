@@ -1,6 +1,6 @@
 "Properties"
 	{
-	"Authors"		"asd417, garmezon"
+	"Authors"		"asd417, garmezon, Wonderland_War"
 	"Tags"			"Portal: Ballistics; Test Elements"
 	"infoURL"		"https://www.moddb.com/mods/portal-ballistics"
 	"Ent_count"     "4"
