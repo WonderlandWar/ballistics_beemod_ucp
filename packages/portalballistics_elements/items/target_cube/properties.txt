@@ -1,6 +1,6 @@
 "Properties"
 	{
-	"Authors"		"Wonderland_War, Snazz, canister0"
+	"Authors"		"Wonderland_War, Snazz, canister0, asd417"
 	"Tags"			"Portal 2; Test Elements"
 	"infoURL"		"https://www.moddb.com/mods/portal-ballistics"
 	"Ent_count"     "3"

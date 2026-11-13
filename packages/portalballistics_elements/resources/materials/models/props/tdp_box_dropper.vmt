@@ -1,0 +1,7 @@
+vertexlitgeneric
+{
+$baseTexture "models/props/tdp_box_dropper"
+$selfillum 1
+$selfillummask "models/props/tdp_box_dropper_selfillum"
+$blendtintbybasealpha 1
+}

@@ -1,0 +1,10 @@
+VertexLitGeneric
+{
+	$basetexture "models/props_ballistics/target_v3"
+	$bumpmap "models/props_ballistics/target_v3_normal"
+	$surfaceprop metal
+	$phong 1
+        $phongboost 10
+        $phongfresnelranges "[0.2 0.6 1]"
+	$lightwarptexture "models\props_ballistics\target_catcher_lightwarp"
+}
