@@ -12,12 +12,12 @@ This BEEMod UCP ports and improves the new elements that were introduced in [Por
 - Turrets will prioritize shooting Target Cubes over players and Persistent Targets.
   
 #### Mounted Turret
-- A player controlled gun that causes high knockback to physics based objects
+- A player controlled gun that causes high knockback to physics based objects.
 - Has the ability to activate a Persistent Target.
 
 #### Ballistics Turret
-- A modified Turret that deploys and retracts significantly quicker
-- Has the ability to consistently keep Persistent Targets active regardless even if some of its bullets miss
+- A modified Turret that deploys and retracts significantly quicker.
+- Has the ability to consistently keep Persistent Targets active regardless even if some of its bullets miss.
 - Has a fix that prevents an exploit that allows you to hold a turret that can also target and shoot things.
 #### Ballistics Turret Dropper
 - Functions identically to the Turret Dropper, but drops Ballistics Turrets instead.
