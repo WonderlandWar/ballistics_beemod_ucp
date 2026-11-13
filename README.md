@@ -25,6 +25,7 @@ This BEEMod UCP ports and improves the new elements that were introduced in [Por
 # Known Issues
 - Turret Priorities don't work properly in cooperative.
 - Mounted Turret has various minor bugs with its visuals and aiming in cooperative.
+- Turrets can see Target Cubes that are inside of Cube Droppers at certain angles. 
 
 # Credits
 #### Wonderland_War
