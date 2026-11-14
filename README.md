@@ -2,6 +2,8 @@
 
 This BEEMod UCP ports and improves the new elements that were introduced in [Portal: Ballistics](https://www.moddb.com/mods/portal-ballistics), a Portal mod focused on using turrets as testing elements.
 
+Ballistics Discord Server: https://discord.gg/7e5NkzVXcZ
+
 # Added Items
 #### Persistent Target 
 - Sends an output while it's being shot at by anything bullet based, but stops sending an output once it's no longer being shot at.
