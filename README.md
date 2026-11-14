@@ -27,7 +27,6 @@ Ballistics Discord Server: https://discord.gg/7e5NkzVXcZ
 # Known Issues
 - Turret Priorities don't work properly in cooperative.
 - Mounted Turret has various minor bugs with its visuals and aiming in cooperative.
-- Turrets can see Target Cubes that are inside of Cube Droppers at certain angles. 
 
 # Credits
 #### Wonderland_War
