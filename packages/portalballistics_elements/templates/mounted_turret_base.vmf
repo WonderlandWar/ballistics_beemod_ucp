@@ -2,7 +2,7 @@ versioninfo
 {
 	"editorversion" "400"
 	"editorbuild" "9672"
-	"mapversion" "18"
+	"mapversion" "19"
 	"formatversion" "100"
 	"prefab" "0"
 }
@@ -20,7 +20,7 @@ viewsettings
 world
 {
 	"id" "1"
-	"mapversion" "18"
+	"mapversion" "19"
 	"classname" "worldspawn"
 	"detailmaterial" "detail/detailsprites"
 	"detailvbsp" "detail.vbsp"
@@ -56,7 +56,7 @@ world
 		{
 			"id" "9"
 			"plane" "(-64 64 -56) (-64 -64 -56) (-64 -64 -64)"
-			"material" "BEE2/NO_PAINT/PLASTICWALL004A"
+			"material" "PLASTIC/PLASTICWALL004A"
 			"uaxis" "[0 -1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
@@ -67,7 +67,7 @@ world
 		{
 			"id" "10"
 			"plane" "(64 64 -64) (64 -64 -64) (64 -64 -56)"
-			"material" "BEE2/NO_PAINT/PLASTICWALL004A"
+			"material" "PLASTIC/PLASTICWALL004A"
 			"uaxis" "[0 1 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
@@ -78,7 +78,7 @@ world
 		{
 			"id" "11"
 			"plane" "(64 64 -56) (-64 64 -56) (-64 64 -64)"
-			"material" "BEE2/NO_PAINT/PLASTICWALL004A"
+			"material" "PLASTIC/PLASTICWALL004A"
 			"uaxis" "[-1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
@@ -89,7 +89,7 @@ world
 		{
 			"id" "12"
 			"plane" "(64 -64 -64) (-64 -64 -64) (-64 -64 -56)"
-			"material" "BEE2/NO_PAINT/PLASTICWALL004A"
+			"material" "PLASTIC/PLASTICWALL004A"
 			"uaxis" "[1 0 0 0] 0.25"
 			"vaxis" "[0 0 -1 0] 0.25"
 			"rotation" "0"
