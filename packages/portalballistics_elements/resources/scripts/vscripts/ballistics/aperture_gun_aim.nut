@@ -31,14 +31,15 @@ function Resolve() {
 }
 
 // P2's TraceLine only hits the world; env_laser also stops at entities, so test these by bounding box.
-BLOCKERS <- ["player", "prop_weighted_cube", "prop_monster_box", "prop_physics", "prop_physics_override", "npc_portal_turret_floor"];
+BLOCKERS <- ["player", "prop_weighted_cube", "prop_monster_box", "prop_physics", "prop_physics_override", "npc_portal_turret_floor", "projected_wall_entity"];
 
-// Distance along dir to e's box (oriented by its angles; the player's box is world-aligned), or MAX_DIST.
+// Distance along dir to e's box (oriented by its angles; player and light bridge boxes are world-aligned), or MAX_DIST.
 // Boxes the ray starts inside are ignored.
 function RayBox(start, dir, e) {
 	local lo = e.GetBoundingMins(), hi = e.GetBoundingMaxs();
 	local los = [lo.x, lo.y, lo.z], his = [hi.x, hi.y, hi.z];
-	local axes = e.GetClassname() == "player" ? [Vector(1, 0, 0), Vector(0, 1, 0), Vector(0, 0, 1)]
+	local cls = e.GetClassname();
+	local axes = cls == "player" || cls == "projected_wall_entity" ? [Vector(1, 0, 0), Vector(0, 1, 0), Vector(0, 0, 1)]
 		: [e.GetForwardVector(), e.GetLeftVector(), e.GetUpVector()];
 	local p = start - e.GetOrigin(), t0 = -MAX_DIST, t1 = MAX_DIST;
 	for (local i = 0; i < 3; i++) {
@@ -69,6 +70,8 @@ function Trace(start, dir) {
 				local d = RayBox(start, dir, e);
 				if (d < dist) { dist = d; trace_ent = e; }
 			}
+	// A bridge stops the beam but isn't a victim, so the pusher does nothing there.
+	if (trace_ent && trace_ent.GetClassname() == "projected_wall_entity") trace_ent = null;
 	return start + dir * dist;
 }
 
